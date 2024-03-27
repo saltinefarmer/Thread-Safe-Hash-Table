@@ -34,6 +34,7 @@ void* threadwork(void* args) {
  * (DO NOT MODIFY WHEN SUBMITTING FINAL VERSION)
  */
 int main(int argc, char *argv[]) {
+
 	if (argc < 4) {
 		printf("Usage: %s <num threads> <hashmap capacity> <max key>\n", argv[0]);
 		return 1;
@@ -44,6 +45,8 @@ int main(int argc, char *argv[]) {
 	int num_threads = (unsigned int) atoi(argv[1]);
 	int capacity = (unsigned int) atoi(argv[2]);
 	maxKey = (unsigned int) atoi(argv[3]);
+
+
 
 	// initialize map
 	map = initmap(capacity);
@@ -73,6 +76,8 @@ int main(int argc, char *argv[]) {
 	// printmap(map);
 	printf("Number of ops = %d, time elapsed = %.6f sec\n", map->numOps, (endTime-startTime));
 	printf("Time per op   = %.6f ms\n", (double)(endTime-startTime)/map->numOps*1000);
+
+	
 	freeMap(map);
 	return 0;
 }
