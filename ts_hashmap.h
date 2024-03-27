@@ -20,6 +20,7 @@ typedef struct ts_hashmap_t {
    pthread_mutex_t *locks;
    pthread_mutex_t size_lock;
    pthread_mutex_t numOps_lock;
+   pthread_mutex_t capacity_lock;
 
 } ts_hashmap_t;
 
@@ -30,3 +31,5 @@ int put(ts_hashmap_t*, int, int);
 int del(ts_hashmap_t*, int);
 void printmap(ts_hashmap_t*);
 void freeMap(ts_hashmap_t*);
+void freeMapNoLocks(ts_hashmap_t*);
+ts_hashmap_t *rehash(ts_hashmap_t *map);
