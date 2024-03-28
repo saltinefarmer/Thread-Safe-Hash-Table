@@ -20,7 +20,6 @@ typedef struct ts_hashmap_t {
    pthread_mutex_t *locks;
    pthread_mutex_t size_lock;
    pthread_mutex_t numOps_lock;
-   pthread_mutex_t capacity_lock;
 
 } ts_hashmap_t;
 

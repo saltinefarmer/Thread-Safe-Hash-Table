@@ -32,7 +32,6 @@ ts_hashmap_t *initmap(int capacity) {
 
   pthread_mutex_init(&map->size_lock, NULL);
   pthread_mutex_init(&map->numOps_lock, NULL);
-  pthread_mutex_init(&map->capacity_lock, NULL);
 
   return map;
 }
@@ -45,9 +44,7 @@ ts_hashmap_t *initmap(int capacity) {
  */
 int get(ts_hashmap_t *map, int key) {
 
-  pthread_mutex_lock(&map-> capacity_lock);
   int row = key % map->capacity;
-  pthread_mutex_unlock(&map->capacity_lock);
 
   pthread_mutex_lock(&map->locks[row]);
 
@@ -79,9 +76,7 @@ int get(ts_hashmap_t *map, int key) {
  */
 int put(ts_hashmap_t *map, int key, int value) {
   
-  pthread_mutex_lock(&map-> capacity_lock);
   int row = key % map->capacity;
-  pthread_mutex_unlock(&map->capacity_lock);
   
   pthread_mutex_lock(&map->locks[row]);
 
@@ -150,9 +145,7 @@ int put(ts_hashmap_t *map, int key, int value) {
  */
 int del(ts_hashmap_t *map, int key) {
 
-  pthread_mutex_lock(&map-> capacity_lock);
   int row = key % map->capacity;
-  pthread_mutex_unlock(&map->capacity_lock);
 
   pthread_mutex_lock(&map->locks[row]);
 
@@ -213,7 +206,6 @@ void printmap(ts_hashmap_t *map) {
 void freeMap(ts_hashmap_t *map) {
   
   // TODO: destroy locks
-  pthread_mutex_destroy(&map->capacity_lock);
   pthread_mutex_destroy(&map->size_lock);
   pthread_mutex_destroy(&map->numOps_lock);
 
